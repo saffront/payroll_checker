@@ -1,0 +1,59 @@
+{
+  "package.json": {
+    "name": "payroll-checker",
+    "version": "1.0.0",
+    "description": "Monthly Payroll Variance Monitor - Detect significant month-to-month variations in payroll data",
+    "homepage": "https://saffront.github.io/payroll-checker",
+    "private": true,
+    "dependencies": {
+      "react": "^18.2.0",
+      "react-dom": "^18.2.0",
+      "lucide-react": "^0.263.1",
+      "xlsx": "^0.18.5"
+    },
+    "scripts": {
+      "start": "react-scripts start",
+      "build": "react-scripts build",
+      "test": "react-scripts test",
+      "eject": "react-scripts eject",
+      "predeploy": "npm run build",
+      "deploy": "gh-pages -d build"
+    },
+    "eslintConfig": {
+      "extends": [
+        "react-app",
+        "react-app/jest"
+      ]
+    },
+    "browserslist": {
+      "production": [
+        ">0.2%",
+        "not dead",
+        "not op_mini all"
+      ],
+      "development": [
+        "last 1 chrome version",
+        "last 1 firefox version",
+        "last 1 safari version"
+      ]
+    },
+    "devDependencies": {
+      "react-scripts": "5.0.1",
+      "gh-pages": "^6.0.0",
+      "@types/react": "^18.2.0",
+      "@types/react-dom": "^18.2.0"
+    }
+  },
+  
+  "public/index.html": "<!DOCTYPE html>\n<html lang=\"en\">\n  <head>\n    <meta charset=\"utf-8\" />\n    <link rel=\"icon\" href=\"%PUBLIC_URL%/favicon.ico\" />\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\n    <meta name=\"theme-color\" content=\"#000000\" />\n    <meta name=\"description\" content=\"Monthly Payroll Variance Monitor - Detect significant month-to-month variations in payroll data\" />\n    <link rel=\"apple-touch-icon\" href=\"%PUBLIC_URL%/logo192.png\" />\n    <link rel=\"manifest\" href=\"%PUBLIC_URL%/manifest.json\" />\n    <title>Payroll Variance Monitor</title>\n    <script src=\"https://cdn.tailwindcss.com\"></script>\n  </head>\n  <body>\n    <noscript>You need to enable JavaScript to run this app.</noscript>\n    <div id=\"root\"></div>\n  </body>\n</html>",
+  
+  "src/index.js": "import React from 'react';\nimport ReactDOM from 'react-dom/client';\nimport './index.css';\nimport App from './App';\n\nconst root = ReactDOM.createRoot(document.getElementById('root'));\nroot.render(\n  <React.StrictMode>\n    <App />\n  </React.StrictMode>\n);",
+  
+  "src/index.css": "body {\n  margin: 0;\n  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',\n    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',\n    sans-serif;\n  -webkit-font-smoothing: antialiased;\n  -moz-osx-font-smoothing: grayscale;\n}\n\ncode {\n  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',\n    monospace;\n}",
+    
+  "README.md": "# Payroll Variance Monitor\n\nA React-based tool for monitoring month-to-month variations in payroll data. Upload multiple Excel payroll files and automatically detect significant changes that require review.\n\n## Features\n\n- 📊 **Multi-file Upload**: Upload unlimited payroll files (.xls, .xlsx)\n- 🚨 **Smart Alerts**: Automatically flag significant variances above your threshold\n- 👥 **Employee Tracking**: Monitor individual employee changes\n- 📈 **Company Metrics**: Track organization-wide payroll trends\n- ⚙️ **Configurable Thresholds**: Set sensitivity from 10% to 25%\n- 💰 **Multiple Metrics**: Monitor salary, allowances, overtime, gross pay, net wages, and taxes\n\n## Key Metrics Monitored\n\n- **Total Salary** changes\n- **Allowances (Add)** variations\n- **Overtime Amount** fluctuations\n- **Gross Pay** differences\n- **Net Wages** changes\n- **Tax (PCB)** variations\n- **Employee count** changes\n\n## Alert Types\n\n- 🚨 **High Priority**: Major variances (≥25% or ≥50% for individuals)\n- ⚠️ **Medium Priority**: Moderate variances above your threshold\n- 👤 **Employee-Level**: Individual salary/allowance changes\n- 👥 **Headcount**: Staff additions/departures\n- 🏢 **Company-Wide**: Organization-level changes\n\n## Usage\n\n1. **Upload Files**: Select multiple monthly payroll Excel files\n2. **Set Threshold**: Choose your sensitivity level (10-25%)\n3. **Review Alerts**: Check flagged items for manual review\n4. **Ongoing Monitoring**: Add new months as they become available\n\n## Supported File Formats\n\n- Excel files (.xls, .xlsx)\n- Range Pharma payroll format\n- Automatic month detection from file content or filename\n\n## Development\n\n```bash\n# Install dependencies\nnpm install\n\n# Start development server\nnpm start\n\n# Build for production\nnpm run build\n\n# Deploy to GitHub Pages\nnpm run deploy\n```\n\n## Technology Stack\n\n- **React 18** - UI framework\n- **Tailwind CSS** - Styling\n- **Lucide React** - Icons\n- **SheetJS** - Excel file processing\n- **GitHub Pages** - Deployment\n\n## Security Note\n\nAll file processing happens locally in your browser. No payroll data is sent to any server or stored online.\n\n## License\n\nMIT License - see LICENSE file for details.",
+  
+  ".github/workflows/deploy.yml": "name: Deploy to GitHub Pages\n\non:\n  push:\n    branches: [ main ]\n  pull_request:\n    branches: [ main ]\n\njobs:\n  deploy:\n    runs-on: ubuntu-latest\n    \n    permissions:\n      contents: read\n      pages: write\n      id-token: write\n    \n    steps:\n    - name: Checkout\n      uses: actions/checkout@v4\n      \n    - name: Setup Node.js\n      uses: actions/setup-node@v4\n      with:\n        node-version: '18'\n        cache: 'npm'\n        \n    - name: Install dependencies\n      run: npm ci\n      \n    - name: Build\n      run: npm run build\n      \n    - name: Setup Pages\n      uses: actions/configure-pages@v4\n      \n    - name: Upload artifact\n      uses: actions/upload-pages-artifact@v3\n      with:\n        path: './build'\n        \n    - name: Deploy to GitHub Pages\n      id: deployment\n      uses: actions/deploy-pages@v4",
+      
+  "public/manifest.json": "{\n  \"short_name\": \"Payroll Monitor\",\n  \"name\": \"Payroll Variance Monitor\",\n  \"icons\": [\n    {\n      \"src\": \"favicon.ico\",\n      \"sizes\": \"64x64 32x32 24x24 16x16\",\n      \"type\": \"image/x-icon\"\n    }\n  ],\n  \"start_url\": \".\",\n  \"display\": \"standalone\",\n  \"theme_color\": \"#000000\",\n  \"background_color\": \"#ffffff\"\n}"
+}
